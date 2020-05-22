@@ -61,39 +61,6 @@ namespace AirHockey
             switch (e.KeyCode)
             {
                 case Keys.N:
-                    nDown = false;
-                    break;
-                case Keys.M:
-                    mDown = false;
-                    break;
-                case Keys.B:
-                    bDown = false;
-                    break;
-                case Keys.Space:
-                    spaceDown = false;
-                    break;
-                case Keys.Up:
-                    upArrowDown = false;
-                    break;
-                case Keys.Down:
-                    downArrowDown = false;
-                    break;
-                case Keys.Left:
-                    leftArrowDown = false;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.N:
                     nDown = true;
                     break;
                 case Keys.M:
@@ -116,6 +83,39 @@ namespace AirHockey
                     break;
                 case Keys.Right:
                     rightArrowDown = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.N:
+                    nDown = false;
+                    break;
+                case Keys.M:
+                    mDown = false;
+                    break;
+                case Keys.B:
+                    bDown = false;
+                    break;
+                case Keys.Space:
+                    spaceDown = false;
+                    break;
+                case Keys.Up:
+                    upArrowDown = false;
+                    break;
+                case Keys.Down:
+                    downArrowDown = false;
+                    break;
+                case Keys.Left:
+                    leftArrowDown = false;
+                    break;
+                case Keys.Right:
+                    rightArrowDown = false;
                     break;
                 default:
                     break;
@@ -146,24 +146,24 @@ namespace AirHockey
                 paddle1X += paddleSpeed; 
             }
 
-            if (upArrowDown == true && paddle1Y > 0)
+            if (upArrowDown == true && paddle2Y > 0)
             {
-                paddle1Y -= paddleSpeed;
+                paddle2Y -= paddleSpeed;
             }
 
-            if (rightArrowDown == true && paddle1X < 600)
+            if (leftArrowDown == true && paddle2X < 600 - paddleWidth)
             {
-                paddle1X += paddleSpeed;
+                paddle2X -= paddleSpeed;
             }
 
-            if ( downArrowDown == true && paddle1Y < this.Height - paddleHeight)
+            if ( downArrowDown == true && paddle2Y < this.Height - paddleHeight)
             {
-                paddle1Y += paddleSpeed;
+                paddle2Y += paddleSpeed;
             }
 
-            if (leftArrowDown == true && paddle1X < 300 + paddleWidth)
+            if (rightArrowDown == true && paddle2X > 300 - paddleWidth)
             {
-                paddle1X -= paddleSpeed;
+                paddle2X += paddleSpeed;
             }
 
             if (ballY < 0 || ballY > this.Height - ballHeight)
@@ -208,6 +208,14 @@ namespace AirHockey
                 paddle2Y = 170;
                 paddle2X = 580;
             }
+            else if (ballX < 0 )
+            {
+                ballXSpeed *= -1;
+            }
+            else if (ballX > 600)
+            {
+                ballXSpeed *= -1;
+            }
 
             if (player1Score == 3 || player2Score == 3)
             {
@@ -225,7 +233,7 @@ namespace AirHockey
             e.Graphics.FillEllipse(blueBrush, ballX, ballY, ballWidth, ballHeight);
 
             e.Graphics.DrawString($"{player1Score}", screenFont, blueBrush, 20, 10);
-            e.Graphics.DrawString($"{player1Score}", screenFont, blueBrush, 580, 10);
+            e.Graphics.DrawString($"{player2Score}", screenFont, blueBrush, 560, 10);
 
         }
       
